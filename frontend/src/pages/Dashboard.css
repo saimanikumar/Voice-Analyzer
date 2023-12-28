@@ -1,0 +1,62 @@
+
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: 1rem; */
+}
+
+.speech-container {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Josefin Sans", sans-serif;
+  color: white;
+
+  .container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+
+    .main-content {
+      border: 0.2rem solid rgb(62, 223, 255);
+      border-radius: 0.8rem;
+      padding: 2rem; /* Increased padding for larger area */
+      margin-bottom: 1rem;
+      cursor: pointer;
+      width: 36rem;
+      text-align: center;
+      height: 15rem; /* Increased height for more content visibility */
+      /* overflow-y: auto; */ /* Change this line or remove it */
+      overflow-y: visible; /* Or, use this line to prevent scrollbar */
+      font-size: 1.2rem; /* Adjust the font size for better readability */
+    }
+
+    .btn-style {
+      display: flex;
+      gap: 1rem;
+
+      button {
+        padding: 1rem;
+        width: 7rem;
+        border: 0.2rem solid rgb(62, 223, 255);
+        border-radius: 0.8rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgb(62, 223, 255);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+.speeches-container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .speech-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .speech-card {
+    background-color: #e7e5e5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 150px; /* Set a fixed height for uniformity */
+    margin-bottom: 10px; /* Adjust the bottom margin */
+  }
+  
+  
+  .speech-card .speech-text {
+    color: #dddada;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    padding: 8px;
+    background-color: rgb(119, 116, 116);
+    height: 100px; /* Set a fixed height for text area */
+    overflow: auto; /* Hide overflow text */
+  }
+  
+  .speech-card button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .speech-card button:hover {
+    background-color: #c82333;
+  }
+  
