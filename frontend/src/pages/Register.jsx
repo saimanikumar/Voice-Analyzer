@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Footer from '../components/Footer';
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -75,7 +74,6 @@ const Register = () => {
           </Link>
         </span>
       </form></div>
-      <Footer/>
     </div>
   );
 };

@@ -8,7 +8,7 @@ export const AuthContexProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
-
+  // const isLoggedIn = !!currentUser; 
   const login = async (inputs) => {
     const res = await axios.post(`${host}/api/user/login`, inputs);
     setCurrentUser(res.data);

@@ -1,3 +1,3 @@
-const host = "https://voice-analyzer-kyro-backend.onrender.com"
+const host = "http://localhost:8800"
 
 export default host;

@@ -114,6 +114,7 @@ $blue: rgb(62, 223, 255);
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    // margin-top: 0;
     margin-bottom: 1em;
 
     .xt {
@@ -125,7 +126,7 @@ $blue: rgb(62, 223, 255);
       height: 50vh;
       width: 40vw;
       border-radius: 1em;
-      margin-top: 9em;
+      margin-top: 5em;
     }
 
     h1 {

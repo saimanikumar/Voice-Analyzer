@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext';
-import Footer from "../components/Footer"
 
 const Login = () => {
   const [input, setInputs] = useState({
@@ -40,7 +39,6 @@ const Login = () => {
         {err && <p>{err}</p>}
         <span>New member? <Link style={{textDecoration: "none", color : '#ff9899'}} to="/register">Register</Link></span>
       </form></div>
-      <Footer/>
     </div>
   )
 }
