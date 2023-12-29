@@ -113,6 +113,7 @@ $blue: rgb(62, 223, 255);
       &:hover {
         background-color: $blue;
       }
+      overflow: auto;
     }
   }
   .auth2 {
@@ -176,6 +177,8 @@ $blue: rgb(62, 223, 255);
         font-size: 0.9em;
         color: red;
         text-align: center;
+        margin: 0;
+        padding: 0;
       }
 
       span {

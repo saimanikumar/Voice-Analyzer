@@ -8,9 +8,9 @@ const Login = () => {
     password: "",
   });
   const [err, setError] = useState(null);
+  const [loading, setLoading] = useState(false); 
 
   const navigate = useNavigate();
-
   const { login } = useContext(AuthContext);
 
   const handleChange = (e) => {
@@ -19,12 +19,15 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); 
 
     try {
       await login(input);
       navigate("/user/dashboard");
     } catch (err) {
       setError(err.response.data);
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -48,7 +51,7 @@ const Login = () => {
             onChange={handleChange}
           />
           <button onClick={handleSubmit} className="form-btn">
-            Login
+            {loading ? "Loading..." : "Login"} 
           </button>
           {err && <p>{err}</p>}
           <span>

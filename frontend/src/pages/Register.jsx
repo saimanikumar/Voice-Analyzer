@@ -1,7 +1,7 @@
-import React from 'react'
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import host from "../hostUrl";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -11,6 +11,7 @@ const Register = () => {
     password: "",
   });
   const [err, setError] = useState(null);
+  const [loading, setLoading] = useState(false); 
 
   const navigate = useNavigate();
 
@@ -20,20 +21,24 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); 
     try {
-      await axios.post("http://localhost:8800/api/user/register", inputs);
+      await axios.post(`${host}/api/user/register`, inputs);
       navigate("/login");
     } catch (err) {
       setError(err.response.data);
+    } finally {
+      setLoading(false); 
     }
   };
 
   return (
-    <div className="auth2" >
-    <div className='xt' data-aos="zoom-out">
-      <form style={{"height" : "36em"}} data-aos="zoom-in">
-      <h1>REGISTER</h1>
-        <input
+    <div className="auth2">
+      <div className="xt" data-aos="zoom-out">
+        <form style={{ height: "40em" }} data-aos="zoom-in">
+          <h1>REGISTER</h1>
+
+          <input
           required
           type="text"
           placeholder="username"
@@ -62,18 +67,25 @@ const Register = () => {
           onChange={handleChange}
         />
 
-        <button onClick={handleSubmit} className='form-btn' >Register</button>
-        {err && <p>{err}</p>}
-        <span>
-          Aldready a member?{" "}
-          <Link
-            style={{ textDecoration: "none", color: "#ff9899", "backgroundColor": "inherit" }}
-            to="/login"
-          >
-            Login here
-          </Link>
-        </span>
-      </form></div>
+          <button onClick={handleSubmit} className="form-btn">
+            {loading ? "Loading..." : "Register"} 
+          </button>
+          {err && <p>{err}</p>}
+          <span>
+            Already a member?{" "}
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "#ff9899",
+                backgroundColor: "inherit",
+              }}
+              to="/login"
+            >
+              Login here
+            </Link>
+          </span>
+        </form>
+      </div>
     </div>
   );
 };

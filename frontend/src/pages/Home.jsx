@@ -31,7 +31,7 @@ const Home = () => {
                   <h1>Welcome To The React Voice Analyzer App</h1>
                 </div>
                 <Link className="link" to="/login">
-                  <button className="btn-home">Proceed</button>
+                  <button className="btn btn-home">Proceed</button>
                 </Link>
               </>
             )}
