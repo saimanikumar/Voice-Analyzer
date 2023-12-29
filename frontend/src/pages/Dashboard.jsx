@@ -78,7 +78,7 @@ const Dashboard = () => {
               </h2>
               <div
                 className="border border-info p-4 mb-4 custom-transcript"
-                style={{ height: "20em", width: "41em", borderRadius: "10px" }}
+                style={{ height: "20em", width: "41em", borderRadius: "10px", overflow: "auto" }}
                 onClick={() => setTextToCopy(transcript)}
               >
                 {transcript}
