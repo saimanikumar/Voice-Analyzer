@@ -15,7 +15,7 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 180px; /* Set a fixed height for uniformity */
+    height: 185px; /* Set a fixed height for uniformity */
     margin-bottom: 10px; /* Adjust the bottom margin */
   }
   
@@ -26,7 +26,7 @@
     border-radius: 4px;
     padding: 8px;
     background-color: rgb(119, 116, 116);
-    height: 100px; /* Set a fixed height for text area */
+    height: 110px; /* Set a fixed height for text area */
     overflow: auto; /* Hide overflow text */
   }
   
@@ -34,7 +34,7 @@
     background-color: #dc3545;
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 4px 8px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;

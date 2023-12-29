@@ -21,7 +21,7 @@ const Dashboard = () => {
   });
 
   const startListening = () =>
-    SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
+    SpeechRecognition.startListening({ continuous: true });
 
   const { transcript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
@@ -66,7 +66,7 @@ const Dashboard = () => {
   return (
     // <div className="container mt-5 custom-container">
     <div className="row justify-content-center">
-      <center className=" m-5">
+      <center className=" m-4">
         <div className="col-md-8 custom-column">
           <div
             className="car custom-card mt-5"
@@ -74,11 +74,17 @@ const Dashboard = () => {
           >
             <div className="card-body custom-card-body">
               <h2 className="card-title  " style={{ margin: "15px" }}>
-                Speech to Text Converter
+              Voice to Text Translator
               </h2>
+              <p> Instant Speech Recognition & Translation</p>
               <div
                 className="border border-info p-4 mb-4 custom-transcript"
-                style={{ height: "20em", width: "41em", borderRadius: "10px", overflow: "auto" }}
+                style={{
+                  height: "20em",
+                  width: "41em",
+                  borderRadius: "10px",
+                  overflow: "auto",
+                }}
                 onClick={() => setTextToCopy(transcript)}
               >
                 {transcript}
@@ -112,7 +118,7 @@ const Dashboard = () => {
                   className="btn btn-outline-info"
                   onClick={saveTranscriptToBackend}
                 >
-                  Save Transcript
+                  Save & Translate
                 </button>
                 <button
                   className="btn btn-outline-info"

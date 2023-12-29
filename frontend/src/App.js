@@ -40,7 +40,6 @@ function Layout() {
         <Route path="/user/update" element={<RequireAuth><Update /></RequireAuth>} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
-        <Route path="/donate" element={<PaymentGateway />} />
         <Route path="/employ/edit/:id" element={<Employ />} />
         <Route path="/employ/add" element={<AddEmp />} />
         <Route path="/*" element={<NotFound />} />
