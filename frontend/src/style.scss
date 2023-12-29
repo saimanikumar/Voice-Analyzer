@@ -11,14 +11,34 @@ $blue: rgb(62, 223, 255);
 
   .link {
     text-decoration: none;
+    &:hover {
+      color: $blue;
+    }
   }
+  .navbar-toggler {
+    color: #2c2a2a; /* Change the color as needed for better visibility */
+    background-color: rgb(24, 23, 23); /* Ensures the button is transparent */
+    // border: none; /* Removes any border */
+  }
+  .navbar-light span.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='yellow' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    color: rgb(6, 4, 4);
+  }
+  /* To style the collapsed navbar background */
+
+  /* To remove the border from the navbar */
   .navbar {
-    .container {
+    border: none; /* Removes the border */
+    border-radius: 0; /* Ensures no border radius */
+  }
+
+  .navbar {
+    .container-lll{
       padding: 1em 2em;
       display: flex;
       flex-direction: column;
       align-items: center;
-  
+
       .logo {
         h2 {
           margin-right: auto;
@@ -30,39 +50,25 @@ $blue: rgb(62, 223, 255);
         }
       }
       .links {
-
         display: flex;
         align-items: center;
         gap: 2em;
-  
+
         h6 {
           font-size: 1em;
           font-weight: 300;
-        //   padding-right: 20px;
-  
+          //   padding-right: 20px;
+
           &:hover {
             color: $blue;
           }
         }
-  
+
         span {
           cursor: pointer;
-  
+
           &:hover {
             color: $blue;
-          }
-        }
-      }
-    }
-  
-    @media (min-width: 768px) {
-      .container {
-        flex-direction: row;
-        justify-content: space-between;
-  
-        .logo {
-          h2 {
-            margin-right: 35em;
           }
         }
       }
@@ -99,7 +105,7 @@ $blue: rgb(62, 223, 255);
       padding: 1em;
       border: 0.2em solid $blue;
       border-radius: 0.8em;
-      width: 10vw;
+      width: 12vw;
       margin-top: 8em;
       cursor: pointer;
       color: white;
@@ -143,8 +149,8 @@ $blue: rgb(62, 223, 255);
       padding: 4em;
       border: 0.1em solid $blue;
       border-radius: 1.5em;
-      width: 15em;
-      height: 20em;
+      width: 25em;
+      height: 30em;
       gap: 1.2em;
 
       input {
@@ -415,7 +421,7 @@ $blue: rgb(62, 223, 255);
       margin-bottom: 2em;
     }
 
-    .row {
+    .row-1 {
       display: grid;
       grid-template-columns: auto auto auto;
       padding: 10px;
@@ -543,58 +549,5 @@ $blue: rgb(62, 223, 255);
   /* Existing .dash-main styles */
 
   /* Speech Recognition Styles */
-  .speech-container {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: "Josefin Sans", sans-serif;
-    color: white;
-
-    .container {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 20rem; /* Updated maximum width */
-
-      h2 {
-        margin-bottom: 1rem;
-      }
-
-      .main-content {
-        border: 0.2rem solid rgb(62, 223, 255);
-        border-radius: 0.8rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        cursor: pointer;
-        // width: 100%; /* Updated width to fill the container */
-        text-align: center;
-        overflow-wrap: break-word; /* Wrap content instead of overflowing */
-
-        // &:hover {
-        //   background-color: rgb(62, 223, 255);
-        //   color: black;
-        // }
-      }
-
-      .btn-style {
-        display: flex;
-        gap: 1rem;
-
-        button {
-          padding: 1rem;
-          width: 7rem;
-          border: 0.2rem solid rgb(62, 223, 255);
-          border-radius: 0.8rem;
-          cursor: pointer;
-
-          &:hover {
-            background-color: rgb(62, 223, 255);
-          }
-        }
-      }
-    }
-  }
+ 
 }

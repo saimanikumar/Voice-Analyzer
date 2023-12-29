@@ -31,7 +31,7 @@ const Register = () => {
   return (
     <div className="auth2" >
     <div className='xt' data-aos="zoom-out">
-      <form style={{"height" : "23em"}} data-aos="zoom-in">
+      <form style={{"height" : "36em"}} data-aos="zoom-in">
       <h1>REGISTER</h1>
         <input
           required

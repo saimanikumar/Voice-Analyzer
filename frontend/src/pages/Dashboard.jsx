@@ -1,64 +1,60 @@
-// Dashboard.jsx (Part 1)
-import React, { useContext, useState, useEffect } from 'react';
-import { AuthContext } from '../context/AuthContext'; // Update with the correct path
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import useClipboard from 'react-use-clipboard';
-import axios from 'axios';
-import './Dashboard.css'; // Import your CSS file here
-import { useNavigate } from 'react-router-dom'
-import host from '../hostUrl';
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../context/AuthContext";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+import useClipboard from "react-use-clipboard";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import host from "../hostUrl";
 
 const Dashboard = () => {
   const { currentUser } = useContext(AuthContext);
-  const [textToCopy, setTextToCopy] = useState('');
+  const [textToCopy, setTextToCopy] = useState("");
   const navigate = useNavigate();
   const [isCopied, setCopied] = useClipboard(textToCopy, {
-    successDuration: 1000
+    successDuration: 1000,
   });
-  const [notification, setNotification] = useState({ message: '', isError: false });
+  const [notification, setNotification] = useState({
+    message: "",
+    isError: false,
+  });
 
   const startListening = () =>
-    SpeechRecognition.startListening({ continuous: true, language: 'en-IN' });
+    SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
 
-  const { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const { transcript, browserSupportsSpeechRecognition } =
+    useSpeechRecognition();
 
   const saveTranscriptToBackend = async () => {
     try {
-
-      console.log(currentUser)
       if (!currentUser || !currentUser.User._id) {
         return;
       }
-      
+
       const payload = {
         userId: currentUser.User._id,
         speechText: transcript,
-        language: 'en-IN'
+        language: "en-IN",
       };
-      console.log(payload)
-      console.log(host)
+
       await axios.post(`${host}/api/user/speech`, payload);
-      
-      console.log("YEEES")
-      setNotification({ message: 'Transcript saved!', isError: false });
+      setNotification({ message: "Transcript saved!", isError: false });
     } catch (error) {
-      console.error('Error saving transcript:', error);
-      setNotification({ message: 'Error saving transcript!', isError: true });
+      console.error("Error saving transcript:", error);
+      setNotification({ message: "Error saving transcript!", isError: true });
     }
   };
 
-
   const clearTranscript = () => {
-    setTextToCopy('');
+    setTextToCopy("");
     SpeechRecognition.stopListening();
     navigate("/");
   };
 
-
-
   useEffect(() => {
     const timer = setTimeout(() => {
-      setNotification({ message: '', isError: false });
+      setNotification({ message: "", isError: false });
     }, 2000);
     return () => clearTimeout(timer);
   }, [notification]);
@@ -68,29 +64,77 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="dashboard-container">
-      <div className="speech-container">
-        <div className="container">
-          <h2>Speech to Text Converter</h2>
-          <div className="main-content" onClick={() => setTextToCopy(transcript)}>
-            {transcript}
-          </div>
-          <div className="btn-style">
-            <button onClick={() => { setTextToCopy(transcript); setCopied(); }}>
-              {isCopied ? 'Copied!' : 'Copy to clipboard'}
-            </button>
-            <button onClick={startListening}>Start Speaking</button>
-            <button onClick={SpeechRecognition.stopListening}>Stop Speaking</button>
-            <button onClick={saveTranscriptToBackend}>Save Transcript</button>
-            <button onClick={clearTranscript}>Clear</button>
+    // <div className="container mt-5 custom-container">
+    <div className="row justify-content-center">
+      <center className=" m-5">
+        <div className="col-md-8 custom-column">
+          <div
+            className="car custom-card mt-5"
+            style={{ height: "32em", width: "50em", borderRadius: "15px" }}
+          >
+            <div className="card-body custom-card-body">
+              <h2 className="card-title  " style={{ margin: "15px" }}>
+                Speech to Text Converter
+              </h2>
+              <div
+                className="border border-info p-4 mb-4 custom-transcript"
+                style={{ height: "20em", width: "41em", borderRadius: "10px" }}
+                onClick={() => setTextToCopy(transcript)}
+              >
+                {transcript}
+              </div>
+              <div
+                className="d-flex justify-content-between mb-3"
+                style={{ margin: "50px" }}
+              >
+                <button
+                  className="btn btn-outline-info"
+                  onClick={() => {
+                    setTextToCopy(transcript);
+                    setCopied();
+                  }}
+                >
+                  {isCopied ? "Copied!" : "Copy to clipboard"}
+                </button>
+                <button
+                  className="btn btn-outline-info"
+                  onClick={startListening}
+                >
+                  Start Speaking
+                </button>
+                <button
+                  className="btn btn-outline-info"
+                  onClick={SpeechRecognition.stopListening}
+                >
+                  Stop Speaking
+                </button>
+                <button
+                  className="btn btn-outline-info"
+                  onClick={saveTranscriptToBackend}
+                >
+                  Save Transcript
+                </button>
+                <button
+                  className="btn btn-outline-info"
+                  onClick={clearTranscript}
+                >
+                  Clear
+                </button>
+              </div>
+              {notification.message && (
+                <div
+                  className={`notification ${
+                    notification.isError ? "error" : "success"
+                  }`}
+                >
+                  {notification.message}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      {notification.message && (
-        <div className={`notification ${notification.isError ? 'error' : 'success'}`}>
-          {notification.message}
-        </div>
-      )}
+      </center>
+      {/* </div> */}
     </div>
   );
 };
