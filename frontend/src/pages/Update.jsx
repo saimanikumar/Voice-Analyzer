@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from '../context/AuthContext';
+import host from '../hostUrl';
 
 const Update = () => {
   const { currentUser } = useContext(AuthContext);
@@ -24,7 +25,7 @@ const Update = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8800/api/user/${id}`, inputs);
+      await axios.put(`${host}/api/user/${id}`, inputs);
       navigate("/login");
     } catch (err) {
       setError(err.response.data);

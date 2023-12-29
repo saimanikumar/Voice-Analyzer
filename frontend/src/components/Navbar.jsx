@@ -50,12 +50,23 @@ const Navbar = () => {
                 </Link>
 
                 <Link
+                  to="/user/analysis"
+                  style={{ textDecoration: "none" }}
+                  className="me-3"
+                >
+                  <span className="link">Summary</span>
+                </Link>
+
+                <Link
                   to="/user/update"
                   style={{ textDecoration: "none" }}
                   className="me-3"
                 >
                   <span className="link">{currentUser?.User?.username}</span>
                 </Link>
+
+
+                
 
                 <Link to="/login" style={{ textDecoration: "none" }}>
                   <span className="link" onClick={logout}>

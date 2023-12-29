@@ -15,11 +15,9 @@ import Footer from "./components/Footer";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
-import PaymentGateway from "./pages/PaymentGateway";
-import Employ from "./pages/Employ";
-import AddEmp from "./pages/AddEmp";
 import NotFound from "./pages/NotFound";
 import Speeches from "./pages/Speeches";
+import Summary from "./pages/Summary";
 import { useAuth } from "./context/AuthContext";
 
 const RequireAuth = ({ children }) => {
@@ -37,11 +35,10 @@ function Layout() {
         <Route path="/register" element={<Register />} />
         <Route path="/user/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
         <Route path="/user/speeches" element={<RequireAuth><Speeches /></RequireAuth>} />
+        <Route path="/user/analysis" element={<RequireAuth><Summary /></RequireAuth>} />
         <Route path="/user/update" element={<RequireAuth><Update /></RequireAuth>} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
-        <Route path="/employ/edit/:id" element={<Employ />} />
-        <Route path="/employ/add" element={<AddEmp />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />

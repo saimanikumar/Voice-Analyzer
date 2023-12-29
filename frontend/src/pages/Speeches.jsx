@@ -35,7 +35,7 @@ const Speeches = () => {
 
   return (
     <div className="speeches-container">
-      <h2 style={{'margin-bottom':'20px'}}>Your Speeches After Translation</h2>
+      <h2 style={{'marginBottom':'20px'}}>Your Speeches After Translation</h2>
       {speeches.length === 0 ? (
         <p>No Speeches Yet!</p>
       ) : (
@@ -44,7 +44,7 @@ const Speeches = () => {
             <div className="speech-card" key={speech._id}>
               <div className="speech-text">{speech.speechText}</div>
               <button onClick={() => handleDelete(speech._id)}>Delete</button>
-              
+
             </div>
           ))}
         </div>
