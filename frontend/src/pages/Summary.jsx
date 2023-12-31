@@ -49,6 +49,8 @@ const SummaryPage = () => {
             style={{ display: index === currentTab ? "block" : "none" }}
           >
             <h2>{chart.name}</h2>
+
+            
             
           </div>
         ))}

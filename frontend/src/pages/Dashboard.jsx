@@ -12,6 +12,8 @@ const Dashboard = () => {
   const { currentUser } = useContext(AuthContext);
   const [textToCopy, setTextToCopy] = useState("");
   const navigate = useNavigate();
+  const [saving, setSaving] = useState(false);
+
   const [isCopied, setCopied] = useClipboard(textToCopy, {
     successDuration: 1000,
   });
@@ -31,6 +33,8 @@ const Dashboard = () => {
       if (!currentUser || !currentUser.User._id) {
         return;
       }
+      setSaving(true);
+      SpeechRecognition.stopListening();
 
       const payload = {
         userId: currentUser.User._id,
@@ -39,10 +43,13 @@ const Dashboard = () => {
       };
 
       await axios.post(`${host}/api/user/speech`, payload);
+      
       setNotification({ message: "Transcript saved!", isError: false });
     } catch (error) {
       console.error("Error saving transcript:", error);
       setNotification({ message: "Error saving transcript!", isError: true });
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -74,7 +81,7 @@ const Dashboard = () => {
           >
             <div className="card-body custom-card-body">
               <h2 className="card-title  " style={{ margin: "15px" }}>
-              Voice to Text Translator
+                Voice to Text Translator
               </h2>
               <p> Instant Speech Recognition & Translation</p>
               <div
@@ -118,7 +125,7 @@ const Dashboard = () => {
                   className="btn btn-outline-info"
                   onClick={saveTranscriptToBackend}
                 >
-                  Save & Translate
+                  {saving ? "Saving..." : "Save & Translate"}
                 </button>
                 <button
                   className="btn btn-outline-info"

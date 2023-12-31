@@ -55,7 +55,7 @@ const register = async (req, res) => {
       return res
         .status(400)
         .json(
-          "Password must have atleast 1 uppercase\n, 1 lowercase, 1 special charecter\n 1 number and must consist atleast 8 charectors."
+          "Password must have atleast 1 uppercase\n, 1 lowercase, 1 special charecter only among(@,#,$,%,&)\n 1 number and must consist atleast 8 charectors."
         );
     }
     const salt = await bcrypt.genSalt(10);

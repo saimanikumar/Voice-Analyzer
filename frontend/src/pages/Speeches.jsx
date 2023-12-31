@@ -25,6 +25,15 @@ const Speeches = () => {
 
   const handleDelete = async (speechId) => {
     try {
+      // Find the index of the speech being deleted
+      const index = speeches.findIndex((speech) => speech._id === speechId);
+      // Make a copy of speeches to update the state later
+      const updatedSpeeches = [...speeches];
+      // Set a loading state for the specific speech being deleted
+      updatedSpeeches[index].deleting = true;
+      setSpeeches(updatedSpeeches);
+
+      // Perform the deletion
       await axios.delete(`${host}/api/user/speech/${speechId}`);
       // Fetch speeches again to update the list
       fetchSpeeches();
@@ -35,7 +44,7 @@ const Speeches = () => {
 
   return (
     <div className="speeches-container">
-      <h2 style={{'marginBottom':'20px'}}>Your Speeches After Translation</h2>
+      <h2 style={{ marginBottom: "20px" }}>Your Speeches After Translation</h2>
       {speeches.length === 0 ? (
         <p>No Speeches Yet!</p>
       ) : (
@@ -43,8 +52,12 @@ const Speeches = () => {
           {speeches.map((speech) => (
             <div className="speech-card" key={speech._id}>
               <div className="speech-text">{speech.speechText}</div>
-              <button onClick={() => handleDelete(speech._id)}>Delete</button>
-
+              <button
+                onClick={() => handleDelete(speech._id)}
+                disabled={speech.deleting} // Disable button when deleting
+              >
+                {speech.deleting ? "Deleting..." : "Delete"}
+              </button>
             </div>
           ))}
         </div>
