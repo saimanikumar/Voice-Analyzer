@@ -141,13 +141,21 @@ const identifyTopPhrases = async (speechText) => {
 
   const phrases = NGrams.ngrams(words, 4, true);
 
+  // console.log(phrases)
+
+  const filteredArray = phrases.filter(innerArray => !innerArray.some(value => typeof value === 'boolean'));
+
+  // console.log(filteredArray);
+
   const phraseFrequencies = new Map();
-  phrases.forEach((phrase) => {
+  filteredArray.forEach((phrase) => {
     phraseFrequencies.set(
       phrase.join(" "),
       (phraseFrequencies.get(phrase.join(" ")) || 0) + 1
     );
   });
+
+  // console.log(phraseFrequencies)
 
   const topPhrases = Array.from(phraseFrequencies.entries())
     .sort((a, b) => b[1] - a[1])
