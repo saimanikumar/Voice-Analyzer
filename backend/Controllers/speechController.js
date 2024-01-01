@@ -137,6 +137,8 @@ const identifyTopPhrases = async (speechText) => {
   const tokenizer = new natural.WordTokenizer();
   const words = tokenizer.tokenize(speechText);
 
+  // console.log(speechText);
+
   const phrases = NGrams.ngrams(words, 4, true);
 
   const phraseFrequencies = new Map();
@@ -169,6 +171,8 @@ const getTopPhrases = async (req, res) => {
     const speeches = await Speech.find({ userId });
     const allSpeechText = speeches.map((speech) => speech.speechText).join(" ");
 
+    if (allSpeechText.trim() === "") return res.status(200).json([]);
+
     const topPhrases = await identifyTopPhrases(allSpeechText);
 
     return res.status(200).json(topPhrases);
@@ -180,11 +184,15 @@ const getTopPhrases = async (req, res) => {
 
 async function findSimilarUsers(currentUserId) {
   const allUserSpeeches = await Speech.find({});
-  const currentUserSpeeches = await Speech.find({ currentUserId });
+
+  const currentUserSpeeches = allUserSpeeches.filter(
+    (speech) => speech.userId.toString() === currentUserId
+  );
   const otherUserSpeeches = allUserSpeeches.filter(
     (speech) => speech.userId.toString() !== currentUserId
   );
 
+  // console.log(currentUserSpeeches);
   const similarities = [];
 
   for (const currentSpeech of currentUserSpeeches) {

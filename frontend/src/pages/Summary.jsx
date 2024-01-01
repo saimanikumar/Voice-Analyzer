@@ -172,9 +172,11 @@ const SummaryPage = () => {
               <>
                 <p>Your Voice vs. the Average User Frequency</p>
                 {isLoadingA ? (
-                  <p>Loading Chart...</p> // Loading indicator for bar chart
-                ) : (
+                  <p>Loading Chart...</p> 
+                ) : Object.keys(comparisonData).length !== 0 ? (
                   <Bar data={chart.data} options={chart.options} />
+                ) : (
+                  <p>Add More Speeches!</p>
                 )}
               </>
             )}
@@ -183,7 +185,9 @@ const SummaryPage = () => {
               <>
                 <p>A Personalized Frequency Breakdown</p>
                 {isLoadingB ? (
-                  <p>Loading Frequency Table...</p> // Loading indicator for table
+                  <p>Loading Frequency Table...</p>
+                ) : tableData.length === 0 ? (
+                  <p>Add Speeches!</p>
                 ) : (
                   <div className="user-frequency-table">
                     <table>
@@ -210,7 +214,9 @@ const SummaryPage = () => {
             {chart.type === "phrases" && (
               <>
                 {isLoadingC ? (
-                  <p>Loading Top Phrases...</p> // Loading indicator for table
+                  <p>Loading Top Phrases...</p>
+                ) : topPhrases.length === 0 ? (
+                  <p className="p-3">Add Speeches!</p>
                 ) : (
                   <div className="phrases">
                     {topPhrases.map((data, index) => (
@@ -225,7 +231,9 @@ const SummaryPage = () => {
               <>
                 <p>Your Voices in Sync</p>
                 {isLoadingD ? (
-                  <p>Loading Similar Users...</p> // Loading indicator for table
+                  <p>Loading Similar Users...</p>
+                ) : similarUsersData.length === 0 ? (
+                  <p>Add Speeches!</p>
                 ) : (
                   <div className="user-similar-table">
                     <table>

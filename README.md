@@ -22,4 +22,4 @@ Explore the live application: [https://voice-analyzer-kyro-react.onrender.com/](
 - Database: MongoDB
 - Speech Recognition: react-speech-recognition
 - Translation: Google Translate API
-- NLP: Natural
+- NLP: Natural library(js)
