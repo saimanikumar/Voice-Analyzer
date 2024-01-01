@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Routes,
   Navigate,
@@ -33,10 +33,38 @@ function Layout() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/user/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
-        <Route path="/user/speeches" element={<RequireAuth><Speeches /></RequireAuth>} />
-        <Route path="/user/analysis" element={<RequireAuth><Summary /></RequireAuth>} />
-        <Route path="/user/update" element={<RequireAuth><Update /></RequireAuth>} />
+        <Route
+          path="/user/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/user/speeches"
+          element={
+            <RequireAuth>
+              <Speeches />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/user/analysis"
+          element={
+            <RequireAuth>
+              <Summary />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/user/update"
+          element={
+            <RequireAuth>
+              <Update />
+            </RequireAuth>
+          }
+        />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/*" element={<NotFound />} />
