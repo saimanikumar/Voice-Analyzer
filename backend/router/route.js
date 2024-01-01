@@ -16,5 +16,6 @@ router.delete('/api/user/speech/:id', speechController.deleteSpeech);
 router.get('/api/user/speeches/:userId', speechController.getSpeeches);
 router.get('/api/user/wordFrequencies/:userId', speechController.getWordFrequencies); // New route for user word frequencies
 router.get('/api/user/compareFrequencies/:userId', speechController.compareWordFrequencies); // New route to compare word frequencies
+router.get("/api/user/topPhrases/:userId", speechController.getTopPhrases); // New route for top phrases
 
 module.exports = router;

@@ -9,6 +9,7 @@ const SummaryPage = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const [comparisonData, setComparisonData] = useState({});
   const [tableData, setTableData] = useState([]);
+  const [topPhrases, setTopPhrases] = useState([]);
   const [barChartColors, setBarChartColors] = useState([
     "rgba(54, 162, 235, 0.6)",
     "rgba(255, 99, 132, 0.6)",
@@ -46,8 +47,21 @@ const SummaryPage = () => {
       }
     };
 
+    const loadTopPhrases = async () => {
+      try {
+        const response = await fetch(
+          `${host}/api/user/topPhrases/${currentUser.User._id}`
+        );
+        const data = await response.json();
+        setTopPhrases(data);
+      } catch (error) {
+        console.error("Error loading top phrases data: ", error);
+      }
+    };
+
     fetchUserFrequencyData();
     loadComparisonData();
+    loadTopPhrases();
   }, [currentUser.User._id]);
 
   const charts = [
@@ -76,12 +90,16 @@ const SummaryPage = () => {
         ],
       },
       options: {
-        //  chart options 
+        //  chart options
       },
     },
     {
       name: "Your Top Word Choices",
       type: "table",
+    },
+    {
+      name: "A Focus on Top 3 Unique Phrases",
+      type: "phrases",
     },
   ];
 
@@ -115,6 +133,7 @@ const SummaryPage = () => {
             style={{ display: index === currentTab ? "block" : "none" }}
           >
             <h2>{chart.name}</h2>
+
             {chart.type === "bar" && (
               <>
                 <p>Your Voice vs. the Average User Frequency</p>
@@ -146,6 +165,15 @@ const SummaryPage = () => {
               </>
             )}
 
+            {chart.type === "phrases" && (
+              <>
+                <div className="phrases">
+                  {topPhrases.map((data, index) => (
+                    <p key={index}>{data}</p>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         ))}
       </div>

@@ -21,6 +21,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.5",
     "natural": "^6.10.4",
+    "ngram": "^0.0.3",
     "nodemon": "^2.0.20",
     "spacy": "^0.0.4",
     "stopwords": "^0.0.9"

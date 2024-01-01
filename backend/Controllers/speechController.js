@@ -1,6 +1,7 @@
 const { translate } = require("@vitalets/google-translate-api");
 const natural = require("natural");
-const stopWords = require('stopwords').english; 
+const ngram = require("ngram");
+const stopWords = require("stopwords").english;
 
 const Speech = require("../Models/speechModel");
 const User = require("../Models/userModel");
@@ -25,21 +26,19 @@ const saveSpeech = async (req, res) => {
     const words = tokenizer.tokenize(translatedText.toLowerCase());
 
     const filteredWords = words.filter((word) => !stopWords.includes(word));
-    console.log(filteredWords)
+    console.log(filteredWords);
     filteredWords.forEach((word) => {
       user.wordFrequencies.set(word, (user.wordFrequencies.get(word) || 0) + 1);
     });
     // console.log(user.wordFrequencies.json())
     await user.save();
-    
+
     return res.status(201).json(savedSpeech);
   } catch (error) {
     console.log(error.message);
     return res.status(500).json(error.message);
   }
 };
-
-
 
 const getSpeeches = async (req, res) => {
   try {
@@ -86,7 +85,7 @@ const getWordFrequencies = async (req, res) => {
   try {
     const userId = req.params.userId;
     const user = await User.findById(userId);
-    console.log(user.wordFrequencies)
+    console.log(user.wordFrequencies);
     return res.status(200).json(user.wordFrequencies);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -135,10 +134,58 @@ const compareWordFrequencies = async (req, res) => {
   }
 };
 
+const identifyTopPhrases = async (speechText) => {
+  const { NGrams } = natural;
+
+  const tokenizer = new natural.WordTokenizer();
+  const words = tokenizer.tokenize(speechText);
+
+  const phrases = NGrams.ngrams(words, 3, true); 
+
+  const phraseFrequencies = new Map();
+  phrases.forEach((phrase) => {
+    phraseFrequencies.set(
+      phrase.join(" "),
+      (phraseFrequencies.get(phrase.join(" ")) || 0) + 1
+    );
+  });
+
+  const topPhrases = Array.from(phraseFrequencies.entries())
+    .sort((a, b) => a[1] - b[1]) 
+    .slice(0, 3)
+    .map(([phrase]) => phrase);
+
+  return topPhrases;
+};
+
+const getTopPhrases = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    const speeches = await Speech.find({ userId });
+    const allSpeechText = speeches.map((speech) => speech.speechText).join(" ");
+
+    const topPhrases = await identifyTopPhrases(allSpeechText);
+
+    return res.status(200).json(topPhrases);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ message: "Error retrieving top phrases" });
+  }
+};
+
 module.exports = {
   saveSpeech,
   deleteSpeech,
   getSpeeches,
   getWordFrequencies,
   compareWordFrequencies,
+  getTopPhrases,
 };
