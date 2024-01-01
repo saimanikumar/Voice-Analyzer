@@ -50,9 +50,9 @@ const About = () => {
           <div className="col-md-12">
             <h2 className="mb-4">About Me</h2>
             <p className="text-muted">
-              Hi, I'm Sai Mani Kumar Devathi! As an autodidact and technology
-              enthusiast based in Guntur, I'm driven by a passion for exploring
-              and mastering various technologies.
+              I'm Sai Mani Kumar Devathi!, an autodidact and technology
+              enthusiast driven by a passion for exploring and mastering various
+              technologies.
             </p>
             <p className="text-muted">
               I'm always eager to collaborate with others on exciting projects,
@@ -70,7 +70,10 @@ const About = () => {
                 <i className="bi bi-github" />
               </a>
               &nbsp;&nbsp;&nbsp; This is my documentation link:&nbsp;&nbsp;
-              <a href="#" target="_blank">
+              <a
+                href="https://docs.google.com/document/d/1U6dSLWXAFUqpBLf2KXjhAWgn3IQlcaEN/edit?usp=sharing&ouid=118321158905907285317&rtpof=true&sd=true"
+                target="_blank"
+              >
                 <i className="bi bi-book" />
               </a>
             </p>
