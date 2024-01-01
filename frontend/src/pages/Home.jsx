@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
@@ -14,7 +13,7 @@ const Home = () => {
             {currentUser ? (
               <>
                 <div className="home">
-                  <h1>Welcome {currentUser?.User?.username}! </h1>
+                  <h1>Welcome {currentUser?.User?.username} </h1>
                 </div>
 
                 <Link

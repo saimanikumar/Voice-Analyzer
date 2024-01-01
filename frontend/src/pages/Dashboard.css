@@ -7,24 +7,12 @@
   /* margin-top: 1rem; */
 }
 
-/* Custom CSS */
-.custom-container {
 
+
+
+
+
+.custom-transcript { 
+  overflow-y: auto; 
 }
-
-
-
-.custom-card {
-
-}
-
-.custom-card-body {
-
-}
-
-.custom-transcript {
-  
-  overflow-y: auto; /* If you want scrollbar for overflow */
-}
-
 

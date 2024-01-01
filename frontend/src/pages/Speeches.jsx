@@ -4,9 +4,12 @@ import axios from "axios";
 import "./Speeches.css"; // Import your CSS file for Speeches styling
 import host from "../hostUrl";
 
+
 const Speeches = () => {
   const { currentUser } = useContext(AuthContext);
   const [speeches, setSpeeches] = useState([]);
+  const [loading, setLoading] = useState(true);
+
 
   const fetchSpeeches = async () => {
     try {
@@ -16,6 +19,8 @@ const Speeches = () => {
       setSpeeches(response.data);
     } catch (error) {
       console.error("Error fetching speeches:", error);
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -45,7 +50,9 @@ const Speeches = () => {
   return (
     <div className="speeches-container">
       <h2 style={{ marginBottom: "20px" }}>Your Speeches After Translation</h2>
-      {speeches.length === 0 ? (
+      {loading ? (
+        <p>Loading...</p>
+      ) : speeches.length === 0 ? (
         <p>No Speeches Yet!</p>
       ) : (
         <div className="speech-cards">

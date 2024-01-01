@@ -60,3 +60,52 @@ canvas {
   width: 300px;
   height: 300px;
 }
+
+
+
+
+.user-frequency-table {
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.user-frequency-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-frequency-table th,
+.user-frequency-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.user-frequency-table th {
+  background-color:  #3b5767;
+}
+
+
+
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #b0b0b0 #ffffff;
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #010101;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #a9a6a6;
+  border-radius: 10px;
+  /* border: 1px solid #ffffff; */
+}
+

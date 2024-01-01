@@ -22,7 +22,7 @@
     "mongoose": "^6.7.5",
     "natural": "^6.10.4",
     "nodemon": "^2.0.20",
-    "razorpay": "^2.8.4",
-    "spacy": "^0.0.4"
+    "spacy": "^0.0.4",
+    "stopwords": "^0.0.9"
   }
 }
