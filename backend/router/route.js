@@ -14,8 +14,9 @@ router.delete("/api/user/:id", userController.deleteUser);
 router.post('/api/user/speech', speechController.saveSpeech);
 router.delete('/api/user/speech/:id', speechController.deleteSpeech);
 router.get('/api/user/speeches/:userId', speechController.getSpeeches);
-router.get('/api/user/wordFrequencies/:userId', speechController.getWordFrequencies); // New route for user word frequencies
-router.get('/api/user/compareFrequencies/:userId', speechController.compareWordFrequencies); // New route to compare word frequencies
-router.get("/api/user/topPhrases/:userId", speechController.getTopPhrases); // New route for top phrases
+router.get('/api/user/wordFrequencies/:userId', speechController.getWordFrequencies); 
+router.get('/api/user/compareFrequencies/:userId', speechController.compareWordFrequencies); 
+router.get("/api/user/topPhrases/:userId", speechController.getTopPhrases); 
+router.get("/api/user/similarUsers/:userId", speechController.getSimilarUsers); 
 
 module.exports = router;

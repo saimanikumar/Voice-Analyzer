@@ -14,6 +14,7 @@
     "@vitalets/google-translate-api": "^9.2.0",
     "bcrypt": "^5.1.0",
     "compromise": "^14.11.0",
+    "compute-cosine-similarity": "^1.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -21,7 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.5",
     "natural": "^6.10.4",
-    "ngram": "^0.0.3",
+    "node-nlp": "^4.27.0",
     "nodemon": "^2.0.20",
     "spacy": "^0.0.4",
     "stopwords": "^0.0.9"

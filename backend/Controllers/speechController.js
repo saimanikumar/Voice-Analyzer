@@ -1,10 +1,9 @@
 const { translate } = require("@vitalets/google-translate-api");
 const natural = require("natural");
-const ngram = require("ngram");
 const stopWords = require("stopwords").english;
-
 const Speech = require("../Models/speechModel");
 const User = require("../Models/userModel");
+const similarity = require("compute-cosine-similarity");
 
 const saveSpeech = async (req, res) => {
   try {
@@ -21,16 +20,18 @@ const saveSpeech = async (req, res) => {
       language: "en",
     });
 
+    console.log(translatedText);
+
     const user = await User.findById(userId);
     const tokenizer = new natural.WordTokenizer();
     const words = tokenizer.tokenize(translatedText.toLowerCase());
 
     const filteredWords = words.filter((word) => !stopWords.includes(word));
-    console.log(filteredWords);
+    // console.log(filteredWords);
     filteredWords.forEach((word) => {
       user.wordFrequencies.set(word, (user.wordFrequencies.get(word) || 0) + 1);
     });
-    // console.log(user.wordFrequencies.json())
+
     await user.save();
 
     return res.status(201).json(savedSpeech);
@@ -73,8 +74,6 @@ const deleteSpeech = async (req, res) => {
 
     await user.save();
 
-    // console.log(user.wordFrequencies);
-
     return res.status(200).json({ message: "Speech deleted successfully" });
   } catch (error) {
     return res.status(500).json(error.message);
@@ -85,7 +84,7 @@ const getWordFrequencies = async (req, res) => {
   try {
     const userId = req.params.userId;
     const user = await User.findById(userId);
-    console.log(user.wordFrequencies);
+    // console.log(user.wordFrequencies);
     return res.status(200).json(user.wordFrequencies);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -126,8 +125,6 @@ const compareWordFrequencies = async (req, res) => {
       comparisonData[word].averageFrequency /= comparisonData[word].count;
     });
 
-    // console.log(comparisonData);
-
     return res.status(200).json(comparisonData);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -140,7 +137,7 @@ const identifyTopPhrases = async (speechText) => {
   const tokenizer = new natural.WordTokenizer();
   const words = tokenizer.tokenize(speechText);
 
-  const phrases = NGrams.ngrams(words, 3, true); 
+  const phrases = NGrams.ngrams(words, 4, true);
 
   const phraseFrequencies = new Map();
   phrases.forEach((phrase) => {
@@ -151,7 +148,7 @@ const identifyTopPhrases = async (speechText) => {
   });
 
   const topPhrases = Array.from(phraseFrequencies.entries())
-    .sort((a, b) => a[1] - b[1]) 
+    .sort((a, b) => b[1] - a[1])
     .slice(0, 3)
     .map(([phrase]) => phrase);
 
@@ -181,6 +178,89 @@ const getTopPhrases = async (req, res) => {
   }
 };
 
+async function findSimilarUsers(currentUserId) {
+  const allUserSpeeches = await Speech.find({});
+  const currentUserSpeeches = await Speech.find({ currentUserId });
+  const otherUserSpeeches = allUserSpeeches.filter(
+    (speech) => speech.userId.toString() !== currentUserId
+  );
+
+  const similarities = [];
+
+  for (const currentSpeech of currentUserSpeeches) {
+    const tfidf = new natural.TfIdf();
+    tfidf.addDocument(currentSpeech.speechText);
+
+    for (const otherSpeech of otherUserSpeeches) {
+      tfidf.addDocument(otherSpeech.speechText);
+
+      const currentSpeechTerms = tfidf.listTerms(0);
+      const otherSpeechTerms = tfidf.listTerms(1);
+
+      const matchingTerms = currentSpeechTerms.filter((term1) =>
+        otherSpeechTerms.some((term2) => term1.term === term2.term)
+      );
+
+      const currentSpeechVector = matchingTerms.map(
+        (term) => currentSpeechTerms.find((t) => t.term === term.term).tfidf
+      );
+      const otherSpeechVector = matchingTerms.map(
+        (term) => otherSpeechTerms.find((t) => t.term === term.term).tfidf
+      );
+
+      const similarityScore = similarity(
+        currentSpeechVector,
+        otherSpeechVector
+      );
+
+      similarities.push({
+        user: otherSpeech.userId,
+        similarity: similarityScore,
+        currentSpeechId: currentSpeech.id,
+        otherSpeechId: otherSpeech.id,
+      });
+    }
+  }
+
+  const averageSimilarities = [];
+  const userMap = new Map();
+  for (const similarity of similarities) {
+    if (!userMap.has(similarity.user.toString())) {
+      userMap.set(similarity.user.toString(), []);
+    }
+    userMap.get(similarity.user.toString()).push(similarity.similarity);
+  }
+
+  for (const [userId, similarityScores] of userMap) {
+    const averageSimilarity =
+      similarityScores.reduce((sum, score) => sum + score, 0) /
+      similarityScores.length;
+
+    const userName = await User.findById(userId);
+
+    averageSimilarities.push({
+      user: userId,
+      username: userName.username,
+      averageSimilarity,
+    });
+  }
+
+  averageSimilarities.sort((a, b) => b.averageSimilarity - a.averageSimilarity);
+
+  return averageSimilarities.slice(0, 3);
+}
+
+const getSimilarUsers = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const similarUsers = await findSimilarUsers(userId);
+    // console.log(similarUsers);
+    res.json(similarUsers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   saveSpeech,
   deleteSpeech,
@@ -188,4 +268,5 @@ module.exports = {
   getWordFrequencies,
   compareWordFrequencies,
   getTopPhrases,
+  getSimilarUsers,
 };

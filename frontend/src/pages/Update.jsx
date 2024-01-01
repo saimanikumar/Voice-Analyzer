@@ -17,6 +17,7 @@ const Update = () => {
   let id = currentUser.User._id
 
   const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -26,6 +27,7 @@ const Update = () => {
     e.preventDefault();
     try {
       await axios.put(`${host}/api/user/${id}`, inputs);
+      await logout();
       navigate("/login");
     } catch (err) {
       setError(err.response.data);
@@ -44,13 +46,7 @@ const Update = () => {
           name="username"
           onChange={handleChange}
         />
-        <input
-          required
-          type="email"
-          placeholder="email"
-          name="email"
-          onChange={handleChange}
-        />
+
         <input
           required
           type="number"

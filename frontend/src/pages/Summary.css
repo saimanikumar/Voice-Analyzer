@@ -81,12 +81,41 @@ canvas {
 .user-frequency-table td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: left;
+  text-align: center;
 }
 
 .user-frequency-table th {
   background-color:  #3b5767;
 }
+
+
+
+.user-similar-table {
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.user-similar-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-similar-table th,
+.user-similar-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.user-similar-table th {
+  background-color:  #3b5767;
+}
+
+
+
 
 
 
