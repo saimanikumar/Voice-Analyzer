@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import Logo from "../images/logo.png";
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext);
@@ -11,7 +9,6 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light p-4">
       <div className="container">
         <Link to="/" className="navbar-brand">
-          {/* <img src={Logo} alt="logo" /> */}
           <h2>Voice Analyzer</h2>
         </Link>
         <button
@@ -28,8 +25,15 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li></li>
-            {/* Add other links here if needed */}
           </ul>
+          <Link
+            to="/about"
+            style={{ textDecoration: "none" }}
+            className="me-3"
+          >
+            <span className="link">About</span>
+          </Link>
+
           <div className="d-flex align-items-center">
             {currentUser ? (
               <>
@@ -64,9 +68,6 @@ const Navbar = () => {
                 >
                   <span className="link">{currentUser?.User?.username}</span>
                 </Link>
-
-
-                
 
                 <Link to="/login" style={{ textDecoration: "none" }}>
                   <span className="link" onClick={logout}>

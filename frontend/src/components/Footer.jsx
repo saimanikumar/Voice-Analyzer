@@ -3,11 +3,8 @@ import { Link } from 'react-router-dom';// import 'bootstrap/dist/css/bootstrap.
 
 const Footer = () => {
   return (
-    <div className='footer text-white text-center py-5'>
+    <div className='footer text-white text-center py-5 my-5'>
       Made with React by Sai Mani Kumar Devathi
-      <Link to="/" className="ms-2  text-white">
-      <span className="link">Home?</span>
-      </Link>
     </div>
   );
 }

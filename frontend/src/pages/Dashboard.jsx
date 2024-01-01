@@ -33,6 +33,10 @@ const Dashboard = () => {
       if (!currentUser || !currentUser.User._id) {
         return;
       }
+      if (transcript === "") {
+        setNotification({ message: "Transcript is Empty!", isError: true });
+        return;
+      }
       setSaving(true);
       SpeechRecognition.stopListening();
 
@@ -43,7 +47,7 @@ const Dashboard = () => {
       };
 
       await axios.post(`${host}/api/user/speech`, payload);
-      
+
       setNotification({ message: "Transcript saved!", isError: false });
     } catch (error) {
       console.error("Error saving transcript:", error);

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import host from "../hostUrl";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -68,7 +69,7 @@ const Register = () => {
         />
 
           <button onClick={handleSubmit} className="form-btn">
-            {loading ? "Loading..." : "Register"} 
+            {loading ? <LoadingSpinner /> : "Register"} 
           </button>
           {err && <p>{err}</p>}
           <span>

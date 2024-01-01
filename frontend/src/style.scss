@@ -33,7 +33,7 @@ $blue: rgb(62, 223, 255);
   }
 
   .navbar {
-    .container-lll{
+    .container-lll {
       padding: 1em 2em;
       display: flex;
       flex-direction: column;
@@ -75,7 +75,8 @@ $blue: rgb(62, 223, 255);
     }
   }
   .footer {
-    margin-top: 7em;
+    // margin-top: 7em;
+    padding: 2em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -168,9 +169,9 @@ $blue: rgb(62, 223, 255);
         cursor: pointer;
         color: white;
 
-        &:hover {
-          background-color: $blue;
-        }
+        // &:hover {
+        //   background-color: $blue;
+        // }
       }
 
       p {
@@ -186,6 +187,7 @@ $blue: rgb(62, 223, 255);
         text-align: center;
       }
     }
+
   }
 
   .dash-main {
@@ -552,5 +554,4 @@ $blue: rgb(62, 223, 255);
   /* Existing .dash-main styles */
 
   /* Speech Recognition Styles */
- 
 }

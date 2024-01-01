@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Login = () => {
   const [input, setInputs] = useState({
@@ -8,7 +9,7 @@ const Login = () => {
     password: "",
   });
   const [err, setError] = useState(null);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
@@ -19,7 +20,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); 
+    setLoading(true);
 
     try {
       await login(input);
@@ -27,7 +28,7 @@ const Login = () => {
     } catch (err) {
       setError(err.response.data);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -51,7 +52,7 @@ const Login = () => {
             onChange={handleChange}
           />
           <button onClick={handleSubmit} className="form-btn">
-            {loading ? "Loading..." : "Login"} 
+            {loading ? <LoadingSpinner /> : "Login"}
           </button>
           {err && <p>{err}</p>}
           <span>

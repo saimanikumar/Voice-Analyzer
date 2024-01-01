@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import Footer from "../components/Footer";
+
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
 
   return (
-    <div className="container">
+    <div className="container mb-5">
       <div className="row justify-content-center align-items-center text-center">
         <div className="col-md-8">
           <div className="home-main" data-aos="zoom-in">
@@ -37,6 +39,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
