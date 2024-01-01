@@ -104,6 +104,8 @@ const compareWordFrequencies = async (req, res) => {
       if (user._id.toString() !== userId) {
         const userWordFrequencies = user.wordFrequencies;
 
+        // console.log(userWordFrequencies);
+
         userWordFrequencies.forEach((frequency, word) => {
           if (currentUserWordFrequencies.has(word)) {
             if (!comparisonData[word]) {
@@ -125,6 +127,18 @@ const compareWordFrequencies = async (req, res) => {
       comparisonData[word].averageFrequency /= comparisonData[word].count;
     });
 
+    if (Object.keys(comparisonData).length === 0) {
+      currentUserWordFrequencies.forEach((frequency, word) => {
+        if (!comparisonData[word]) {
+          comparisonData[word] = {
+            currentUserFrequency: currentUserWordFrequencies.get(word),
+            averageFrequency: 0,
+            count: 0,
+          };
+        }
+      });
+    }
+
     return res.status(200).json(comparisonData);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -143,7 +157,9 @@ const identifyTopPhrases = async (speechText) => {
 
   // console.log(phrases)
 
-  const filteredArray = phrases.filter(innerArray => !innerArray.some(value => typeof value === 'boolean'));
+  const filteredArray = phrases.filter(
+    (innerArray) => !innerArray.some((value) => typeof value === "boolean")
+  );
 
   // console.log(filteredArray);
 
@@ -263,7 +279,7 @@ async function findSimilarUsers(currentUserId) {
 
   averageSimilarities.sort((a, b) => b.averageSimilarity - a.averageSimilarity);
 
-  return averageSimilarities.slice(0, 3);
+  return averageSimilarities.slice(0, 5);
 }
 
 const getSimilarUsers = async (req, res) => {

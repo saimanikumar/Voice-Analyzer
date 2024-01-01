@@ -120,7 +120,7 @@ const SummaryPage = () => {
         ],
       },
       options: {
-        //  chart options
+      
       },
     },
     {
@@ -172,7 +172,7 @@ const SummaryPage = () => {
               <>
                 <p>Your Voice vs. the Average User Frequency</p>
                 {isLoadingA ? (
-                  <p>Loading Chart...</p> 
+                  <p>Loading Chart...</p>
                 ) : Object.keys(comparisonData).length !== 0 ? (
                   <Bar data={chart.data} options={chart.options} />
                 ) : (
